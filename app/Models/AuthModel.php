@@ -14,8 +14,7 @@ class AuthModel extends Authenticatable
     protected $fillable = [
         'email',
         'password',
-        'remember_token',
-        'id_role'
+        'remember_token'
     ];
 
     public $timestamps = false;
