@@ -36,10 +36,18 @@
                             <i class="bi bi-plus-circle"></i> Tambah
                         </a>
 
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleJabatan"
+                            class="btn btn-primary mb-3 mx-3">
+                            <i class="bi bi-search"></i> Cari Jabatan Karyawan
+                        </button>
+
                         <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                            class="btn btn-danger mb-3 mx-3">
+                            class="btn btn-danger mb-3">
                             <i class="bi bi-box-arrow-left"></i> Logout
                         </button>
+
+                        <a href="{{url('cetak_pdf')}}" class="btn btn-secondary mb-3 mx-3" target="_blank"><i
+                                class="bi bi-filetype-pdf"></i> CETAK PDF</a>
                     </div>
                 </div>
 
@@ -137,6 +145,45 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <a href="{{url('logout')}}" class="btn btn-danger">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Cari Jabatan -->
+<div class="modal fade" id="exampleJabatan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Cari Jabatan Karyawan</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="card-body p-3">
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Kode Jabatan</th>
+                                    <th>Nama Jabatan</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="table-group-divider">
+                                @foreach($jabatan as $item)
+                                <tr>
+                                    <td>{{ $item->kode_jabatan }}</td>
+                                    <td>{{ $item->nama_jabatan }}</td>
+                                    <td><a href="{{ route('nama_jabatan', str_replace(' ', '_', strtolower($item->nama_jabatan))) }}"
+                                            class="btn btn-primary m-2"> <i class="bi bi-search"></i> Cari</a></td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

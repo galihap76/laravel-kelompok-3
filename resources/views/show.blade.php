@@ -62,15 +62,17 @@
                 <label for="jabatan" class="fst-normal mb-3"> Jabatan :</label>
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
-                    <input type="text" class="form-control w-50 jabatan" id="jabatan" name="jabatan" autocomplete="off"
-                        value="{{ $data->jabatan }}" disabled>
+                    <select class="form-select jabatan" aria-label="Default select example" name="jabatan" disabled>
+                        <option selected value="{{ $data->jabatan }}">{{ $data->jabatan }}</option>
+                    </select>
                 </div>
 
                 <label for="gaji_pokok" class="fst-normal mb-3"> Gaji Pokok :</label>
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="bi bi-cash-stack"></i></span>
                     <select class="form-select" aria-label="Default select example" name="gaji_pokok" disabled>
-                        <option selected value="{{ number_format($data->gaji_pokok) }}">{{ number_format($data->gaji_pokok) }}</option>
+                        <option selected value="{{ number_format($data->gaji_pokok) }}">{{
+                            number_format($data->gaji_pokok) }}</option>
                     </select>
                 </div>
 

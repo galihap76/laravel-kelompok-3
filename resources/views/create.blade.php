@@ -6,8 +6,6 @@
 
 <div class="container">
 
-    <h5 class="mb-3">CRUD - Tambah Data Karyawan</h5>
-
     @if($errorMessage = Session::get('error'))
     <script>
         Swal.fire({
@@ -118,8 +116,13 @@
                 <label for="jabatan" class="fst-normal mb-3">Isikan Jabatan :</label>
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
-                    <input type="text" class="form-control w-50 @error('jabatan') is-invalid @enderror jabatan"
-                        id="jabatan" name="jabatan" autocomplete="off" value="{{old('jabatan')}}">
+                    <select class="form-select @error('jabatan') is-invalid @enderror jabatan"
+                        aria-label="Default select example" name="jabatan">
+                        <option class="option" value="">- Pilih Jabatan -</option>
+                        @foreach($jabatan as $item)
+                        <option value="{{ $item->nama_jabatan }}">{{ $item->nama_jabatan }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 @if ($errors->has('jabatan'))
@@ -133,7 +136,8 @@
                     <span class="input-group-text"><i class="bi bi-cash-stack"></i></span>
                     <select class="form-select @error('gaji_pokok') is-invalid @enderror gaji_pokok"
                         aria-label="Default select example" name="gaji_pokok">
-                        <option class="option" value="{{ old('gaji_pokok') !== '' ? old('gaji_pokok') : '' }}">- Gaji Pokok -</option>
+                        <option class="option" value="{{ old('gaji_pokok') !== '' ? old('gaji_pokok') : '' }}">- Gaji
+                            Pokok -</option>
                         @for ($i = 5000000; $i <= 10000000; $i +=1000000) <option value="{{ $i }}">{{
                             number_format($i, 0, ',', '.') }}</option>
                             @endfor

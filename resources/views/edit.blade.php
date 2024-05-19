@@ -107,8 +107,16 @@
                 <label for="jabatan" class="fst-normal mb-3">Isikan Jabatan :</label>
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
-                    <input type="text" class="form-control w-50 @error('jabatan') is-invalid @enderror jabatan"
-                        id="jabatan" name="jabatan" autocomplete="off" value="{{ $data->jabatan }}">
+                    <select class="form-select @error('jabatan') is-invalid @enderror jabatan"
+                        aria-label="Default select example" name="jabatan">
+                        <option selected class="option" value="{{ $data->jabatan }}">{{ $data->jabatan }}</option>
+
+                        @foreach($jabatan_karyawan as $item)
+                        @if($item->nama_jabatan != $data->jabatan)
+                        <option value="{{ $item->nama_jabatan }}">{{ $item->nama_jabatan }}</option>
+                        @endif
+                        @endforeach
+                    </select>
                 </div>
 
                 @if ($errors->has('jabatan'))

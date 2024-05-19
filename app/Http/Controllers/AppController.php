@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\KaryawanModel;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AppController extends Controller
 {
@@ -44,7 +46,11 @@ class AppController extends Controller
     public function index()
     {
         $data = KaryawanModel::all();
-        return view("index", compact('data'));
+        $jabatan = DB::table('tbl_jabatan')
+            ->select('nama_jabatan', 'kode_jabatan')
+            ->get();
+
+        return view("index", compact('data', 'jabatan'));
     }
 
     /**
@@ -54,7 +60,11 @@ class AppController extends Controller
      */
     public function create()
     {
-        return view('create');
+        $jabatan = DB::table('tbl_jabatan')
+            ->select('nama_jabatan')
+            ->get();
+
+        return view('create', compact('jabatan'));
     }
 
     /**
@@ -128,7 +138,12 @@ class AppController extends Controller
     public function edit($id)
     {
         $data = KaryawanModel::find($id);
-        return view('edit', compact('data'));
+
+        $jabatan_karyawan = DB::table('tbl_jabatan')
+            ->select('tbl_jabatan.nama_jabatan')
+            ->get();
+
+        return view('edit', compact('data', 'jabatan_karyawan'));
     }
 
     /**
@@ -198,5 +213,30 @@ class AppController extends Controller
             $this->setSessionFlash('error', 'Data karyawan gagal di hapus.');
             return redirect('/app');
         }
+    }
+
+    public function jabatan_karyawan(string $nama_jabatan)
+    {
+        $jabatanStrReplace = str_replace('_', ' ', $nama_jabatan);
+
+        /*SELECT a.kode_karyawan, a.nama_karyawan, b.nama_jabatan AS jabatan_karyawan, b.kode_jabatan FROM tbl_karyawan AS a
+         INNER JOIN tbl_jabatan AS b ON a.jabatan = b.nama_jabatan WHERE a.jabatan = ?; 
+        */
+
+        $jabatan_karyawan = DB::table('tbl_karyawan AS a')
+            ->join('tbl_jabatan AS b', 'a.jabatan', '=', 'b.nama_jabatan')
+            ->select('a.kode_karyawan', 'a.nama_karyawan', 'b.nama_jabatan AS jabatan_karyawan', 'b.kode_jabatan')
+            ->where('a.jabatan', '=', $jabatanStrReplace)
+            ->get();
+
+        return view('jabatan_karyawan', compact('jabatan_karyawan'));
+    }
+
+    public function cetak_pdf()
+    {
+        $karyawan = KaryawanModel::all();
+
+        $pdf = PDF::loadview('karyawan_pdf', ['karyawan' => $karyawan])->setPaper('a3', 'landscape');
+        return $pdf->stream();
     }
 }

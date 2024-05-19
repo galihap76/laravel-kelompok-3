@@ -80,7 +80,7 @@ class AuthController extends Controller
 
         if ($validateData->fails()) {
             return $this->handleValidationFailure('/pendaftaran', $validateData);
-        } else if ($request->input('password') !== $request->input('konfirmasi_password')) {
+        } else if ($request->input('password') != $request->input('konfirmasi_password')) {
             $this->setSessionFlash('error', 'Mohon maaf konfirmasi password tidak sesuai. Silakan coba lagi.');
             return redirect('/pendaftaran')->withInput();
         } else {

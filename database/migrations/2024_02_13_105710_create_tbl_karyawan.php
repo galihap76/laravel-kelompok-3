@@ -15,16 +15,17 @@ return new class extends Migration
     {
         Schema::create('tbl_karyawan', function (Blueprint $table) {
             $table->increments('kode_karyawan');
-            $table->string('nama_karyawan', 100);
-            $table->string('alamat', 255);
-            $table->string('kota', 100);
-            $table->string('provinsi', 100);
+            $table->string('nama_karyawan');
+            $table->string('alamat');
+            $table->string('kota');
+            $table->string('provinsi');
             $table->integer('kode_pos');
-            $table->mediumInteger('nomor_telepon');
-            $table->string('email', 100)->unique();
-            $table->string('jabatan', 100);
-            $table->decimal('gaji_pokok', $precision = 10, $scale = 2);
+            $table->string('nomor_telepon');
+            $table->string('email')->unique();
+            $table->string('jabatan');
+            $table->decimal('gaji_pokok', $precision = 10, $scale = 0);
             $table->date('tanggal_masuk');
+            $table->foreign('jabatan')->references('nama_jabatan')->on('tbl_jabatan');
         });
     }
 

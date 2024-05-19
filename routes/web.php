@@ -29,6 +29,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
 
     Route::resource('app', AppController::class);
+    Route::get('/cetak_pdf', [AppController::class, 'cetak_pdf']);
+    Route::get('/nama_jabatan/{nama_jabatan}', [AppController::class, 'jabatan_karyawan'])->name('nama_jabatan');
 
     Route::get('/logout', [AuthController::class, 'logout']);
 });

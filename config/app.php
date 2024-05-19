@@ -1,5 +1,6 @@
 <?php
 
+use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -163,6 +164,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Package Service Providers...
