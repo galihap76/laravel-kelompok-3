@@ -20,4 +20,5 @@ Versi laravel yang di gunakan adalah versi 9.
 
 ## 3. Cetak PDF
 
-![image](https://github.com/galihap76/laravel-kelompok-3/assets/83481679/101eb090-ab6a-4cd0-8362-dd2d1ec4b685)
+![image](https://github.com/galihap76/laravel-kelompok-3/assets/83481679/143e4cbf-85bb-4b6e-aba2-c0d0e77f97de)
+
